@@ -1,0 +1,21 @@
+// if two fme has same reference, we keep only the latest minor version
+//        for ($i = 0; $i < count($finalResult_tmp); $i++) {
+//            // we loop twice
+//            // our second loop starts from the second element
+//            $checkingElement = $finalResult_tmp[$i];
+//            for ($j = 1; $j < count($finalResult_tmp); $j++) {
+//                //we take the current element
+//                $currentElement =  $finalResult_tmp[$j];
+//                // if the current element got the same reference as our checking element, we check the minor version, else we do nothing
+//                if ($checkingElement['reference'] === $currentElement['reference']) {
+//                    // if the current element has a bigger version than our checking element, our checking element become our current element
+//                    if ($checkingElement['minorVersion'] < $currentElement['minorVersion']) {
+//                        $checkingElement = $currentElement;
+//                    }
+//                }
+//            }
+//            // at the end, either we have our same fme, or the fme with the latest version, and we add to our final array
+//            $finalResult[] = $checkingElement;
+//        }
+        // this will actually duplicate the fme with the latest version if we have multiple fme with same reference, that is why we use array_unique to remove those duplicate elements
+       

@@ -1,0 +1,58 @@
+{% extends 'common.html.twig' %}
+
+{% block title %}
+    Field set edit
+{% endblock %}
+
+{% block page %}
+{{ form_start(form , {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_row(form.id, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_row(form.trigramDomain, {'attr': {'novalidate': 'novalidate'}}) }}
+    <h3>Field descriptors</h3>
+    <div
+        class="row js-specific-field-wrapper"
+        data-index="{{ form.specificFields | length }}"
+        data-prototype="{{ form_widget(form.specificFields.vars.prototype)|e('html_attr') }}"
+    >
+        {% for specificField in form.specificFields %}
+            <div class="col-xs-4 js-specific-field-item">
+                <a href="#" class="js-remove-specific-field pull-right">
+                    x
+                </a>
+                {{ form_errors(specificField) }}
+                {{ form_row(specificField.idFieldDescriptor , {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_row(specificField.defaultValue , {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_row(specificField.defaultUnit , {'attr': {'novalidate': 'novalidate'}}) }}
+            </div>
+        {% endfor %}
+    </div>
+    {{ form_rest(form , {'attr': {'novalidate': 'novalidate'}}) }}
+    <a href="{{ path('fetch_fieldSet_list') }}" class="btn btn-danger">Back</a>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script>
+        jQuery(document).ready(function (){
+            const $wrapper = $('.js-specific-field-wrapper');
+
+            $wrapper.on('click', '.js-remove-specific-field', function (e){
+                e.preventDefault();
+                $(this).closest('.js-specific-field-item').remove();
+            });
+            $wrapper.on('click', '.js-specific-field-add', function (e) {
+                e.preventDefault();
+                let prototype = $wrapper.data('prototype');
+                let index = $wrapper.data('index');
+
+                let newForm = prototype.replace(/___name___/g, index);
+
+                $wrapper.data('index', index + 1);
+
+                $(this).before(newForm);
+
+            })
+        });
+
+    </script>
+{% endblock %}

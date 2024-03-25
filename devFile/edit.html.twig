@@ -1,0 +1,14 @@
+{% extends 'common.html.twig' %}
+
+{% block title %}
+    {% trans %}Edit field set{% endtrans %}
+{% endblock %}
+
+{% block page %}
+    {{ form(form, {'attr': {'novalidate': 'novalidate'}}) }}
+{#    <p>{{ form.vars.value.id }}</p>#}
+    {% if not new %}
+    <a href="{{ path('fetch_fieldSet_list') }}" class="btn btn-danger">{% trans %}Back{% endtrans %}</a>
+    {% endif %}
+{% endblock %}
+
